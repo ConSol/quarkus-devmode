@@ -27,22 +27,13 @@ services:
     networks:
       - devmode
   greeting:
-    image: adoptopenjdk:11.0.11_9-jdk-hotspot-focal@sha256:7ca300be7a4e80848b434994f10d32fedb80a15a845fe87112e64189fbed2abb
+    image: quarkus-devmode/greeting-service
     ports:
       - "8080:8080"
-      - "5005:5005"
     depends_on:
       - postgres
-    volumes:
-      - ./..:/app:rw
-    working_dir: /app
-    user: ${UID}:${GID}
     environment:
       DB_HOST: postgres:5432
-    command:
-      - "sh"
-      - "-c"
-      - "./mvnw -Dmaven.repo.local=/app/.mvn/.m2/repository -DdebugHost=0.0.0.0 -Dquarkus.http.host=0.0.0.0 clean quarkus:dev"
     networks:
       - devmode
 

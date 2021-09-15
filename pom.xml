@@ -198,6 +198,7 @@
         </plugins>
       </build>
       <properties>
+        <quarkus.container-image.additional-tags>latest</quarkus.container-image.additional-tags>
         <quarkus.container-image.build>true</quarkus.container-image.build>
         <quarkus.container-image.tag>${quarkus.container-image.tag-prefix}${git.commit.id.describe-short}</quarkus.container-image.tag>
       </properties>
