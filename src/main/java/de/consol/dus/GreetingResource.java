@@ -38,6 +38,14 @@ public class GreetingResource {
             .orElseGet(() -> new Greeting().setSalutation("Hello").setName(name));
     }
 
+    @GET
+    @Path("{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getGreetingStringByName(@PathParam("name") String name) {
+        final Greeting greeting = getByName(name);
+        return String.format("%s, %s!", greeting.getSalutation(), greeting.getName());
+    }
+
     @DELETE
     @Path("{name}")
     public void deleteGreeting(@PathParam("name") String name) {

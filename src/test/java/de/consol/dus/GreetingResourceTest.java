@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,7 @@ class GreetingResourceTest {
     given()
         .when()
             .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
             .get("John Doe")
         .then()
             .statusCode(Response.Status.OK.getStatusCode())
@@ -47,12 +49,28 @@ class GreetingResourceTest {
     given()
         .when()
             .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
             .body(new Greeting().setSalutation("Hi").setName("John Doe"))
             .post()
         .then()
             .statusCode(Response.Status.OK.getStatusCode())
             .body("salutation", is("Hi"))
             .body("name", is("John Doe"));
+    given()
+        .when()
+            .accept(MediaType.APPLICATION_JSON)
+            .get("John Doe")
+        .then()
+            .statusCode(Response.Status.OK.getStatusCode())
+            .body("salutation", is("Hi"))
+            .body("name", is("John Doe"));
+    given()
+        .when()
+            .accept(MediaType.TEXT_PLAIN)
+            .get("John Doe")
+        .then()
+            .statusCode(Response.Status.OK.getStatusCode())
+        .body(is("Hi, John Doe!"));
     given()
         .when()
             .delete("John Doe")
