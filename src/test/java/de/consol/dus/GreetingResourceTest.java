@@ -20,7 +20,8 @@ class GreetingResourceTest {
             .get()
         .then()
             .statusCode(Response.Status.OK.getStatusCode())
-            .body(is("Hello IBM!"));
+            .body("salutation", is("Hello"))
+            .body("name", is("IBM"));
     // @formatter:on
   }
 }
